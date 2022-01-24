@@ -5,7 +5,7 @@ class Player
     input_hand = gets.chomp
     while true
       if ["0", "1", "2"].include?(input_hand)
-        input_hand.to_i
+        return input_hand.to_i
       else
         puts "0~2を入力してください"
         puts "0:グー, 1:チョキ, 2:パー"
@@ -25,10 +25,13 @@ class Janken
   def pon(player_hand, enemy_hand)
     janken = ["グー", "チョキ", "パー"]
     puts "相手の手は#{janken[enemy_hand]}です。"
-    if player_hand == enemy_hand
+
+    # judge = 自分が勝った時2, 引き分け0, 負けた時1
+    judge = (player_hand - enemy_hand + 3) % 3
+    if judge == 0
       puts "あいこ"
       true
-    elsif (player_hand == 0 && enemy_hand == 1) || (player_hand == 1 && enemy_hand == 2) || (player_hand == 2 && enemy_hand == 0)
+    elsif judge == 2
        puts"あなたの勝ちです"
       false
     else
